@@ -1,0 +1,10 @@
+e:\我的文档\documents\visual studio 2010\Projects\TCPServer\TCPServer\bin\Debug\TCPServer.exe
+e:\我的文档\documents\visual studio 2010\Projects\TCPServer\TCPServer\bin\Debug\TCPServer.pdb
+e:\我的文档\documents\visual studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\ResolveAssemblyReference.cache
+e:\我的文档\documents\visual studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\TCPServer.exe
+e:\我的文档\documents\visual studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\TCPServer.pdb
+D:\Documents\Visual Studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\TCPServer.exe
+D:\Documents\Visual Studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\TCPServer.pdb
+D:\Documents\Visual Studio 2010\Projects\TCPServer\TCPServer\bin\Debug\TCPServer.exe
+D:\Documents\Visual Studio 2010\Projects\TCPServer\TCPServer\bin\Debug\TCPServer.pdb
+D:\Documents\Visual Studio 2010\Projects\TCPServer\TCPServer\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -1,0 +1,7 @@
+d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\bin\Debug\LoginServer.exe
+d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\bin\Debug\LoginServer.pdb
+d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\ResolveAssemblyReference.cache
+d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
+d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
+E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
+E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
