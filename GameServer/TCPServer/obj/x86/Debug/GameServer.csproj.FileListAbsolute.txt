@@ -24,3 +24,6 @@ E:\我的文档\Documents\Visual Studio 2010\Projects\GameServer\TCPServer\obj\x
 D:\Documents\Visual Studio 2010\Projects\GameServer\TCPServer\bin\Debug\LuaInterface.dll
 D:\Documents\Visual Studio 2010\Projects\GameServer\TCPServer\bin\Debug\lua51.dll
 D:\Documents\Visual Studio 2010\Projects\GameServer\TCPServer\bin\Debug\GameServer.exe.config
+E:\我的代码\VS项目\apolloX-server\GameServer\TCPServer\bin\Debug\GameServer.exe.config
+E:\我的代码\VS项目\apolloX-server\GameServer\TCPServer\obj\x86\Debug\GameServer.exe
+E:\我的代码\VS项目\apolloX-server\GameServer\TCPServer\obj\x86\Debug\GameServer.pdb

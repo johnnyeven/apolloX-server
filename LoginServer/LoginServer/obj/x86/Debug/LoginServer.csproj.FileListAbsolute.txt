@@ -5,3 +5,5 @@ d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\L
 d:\documents\visual studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
 E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
 E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
+E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
+E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
