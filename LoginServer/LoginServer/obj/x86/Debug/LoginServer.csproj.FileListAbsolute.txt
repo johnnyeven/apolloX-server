@@ -7,3 +7,6 @@ E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\ob
 E:\我的文档\Documents\Visual Studio 2010\Projects\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
 E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
 E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
+E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\bin\Debug\LoginServer.exe
+E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\bin\Debug\LoginServer.pdb
+E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\ResolveAssemblyReference.cache
