@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
 
 namespace LoginServer
@@ -14,6 +15,7 @@ namespace LoginServer
         const int CONTROLLER_INFO = 0;
         const int ACTION_LOGIN = 1;
         const int ACTION_LOGOUT = 2;
+        const int ACTION_QUICK_START = 8;
         const int ACTION_REQUEST_CHARACTER = 4;
 
         const int ACK_CONFIRM = 1;
@@ -31,7 +33,7 @@ namespace LoginServer
         [STAThread]
         static void Main(string[] args)
         {
-            String connectionString = "Data Source=localhost;Initial Catalog=wooha_character_db;User ID=root;Password=100200";
+            String connectionString = "Data Source=localhost;Initial Catalog=apollox_character_db;User ID=root;Password=100200";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
 
@@ -91,6 +93,10 @@ namespace LoginServer
                         else if (action == ACTION_REQUEST_CHARACTER)
                         {
                             requestCharacter(receiveData, receiveDataLength, client);
+                        }
+                        else if (action == ACTION_QUICK_START)
+                        {
+                            requestQuickStart(receiveData, receiveDataLength, client);
                         }
                     }
                 }
@@ -154,6 +160,38 @@ namespace LoginServer
             }
         }
         */
+
+        static void requestQuickStart(byte[] receiveData, int receiveDataLength, Socket client)
+        {
+            IPEndPoint clientEnpPoint = client.RemoteEndPoint as IPEndPoint;
+            int gameId = int.MinValue;
+            for (int i = 1; i < receiveDataLength; )
+            {
+                int length = BitConverter.ToInt32(new byte[] { receiveData[i + 3], receiveData[i + 2], receiveData[i + 1], receiveData[i] }, 0);
+                int type = receiveData[i + 4];
+                switch (type)
+                {
+                    case TYPE_INT:
+                        if (gameId == int.MinValue)
+                        {
+                            gameId = BitConverter.ToInt32(new byte[] { receiveData[i + 8], receiveData[i + 7], receiveData[i + 6], receiveData[i + 5] }, 0);
+                        }
+                        break;
+                }
+                i += (length + 5);
+            }
+            Console.WriteLine("[QuickStart] GameId: " + gameId);
+            if (gameId != int.MinValue)
+            {
+                String guid = System.Guid.NewGuid().ToString("N");
+                String name = "Guest" + guid;
+                String pass = GetMD5(guid);
+                Console.WriteLine("[QuickStart] Name: " + name + ", Pass: " + pass);
+
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = dbConnection;
+            }
+        }
 
         static void requestLogin(byte[] receiveData, int receiveDataLength, Socket client)
         {
@@ -400,6 +438,19 @@ namespace LoginServer
             //intResult = (time- startTime).TotalMilliseconds;
             long t = (time.Ticks - startTime.Ticks) / 10000;            //除10000调整为13位
             return t;
-        } 
+        }
+
+        public static string GetMD5(string str)
+        {
+            string str1 = "";
+            byte[] data = Encoding.GetEncoding("utf-8").GetBytes(str);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] bytes = md5.ComputeHash(data);
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                str1 += bytes[i].ToString("x2");
+            }
+            return str1;
+        }
     }
 }
