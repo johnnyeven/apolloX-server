@@ -186,10 +186,34 @@ namespace LoginServer
                 String guid = System.Guid.NewGuid().ToString("N");
                 String name = "Guest" + guid;
                 String pass = GetMD5(guid);
+                int sectionId;
+                int serverId;
                 Console.WriteLine("[QuickStart] Name: " + name + ", Pass: " + pass);
 
                 MySqlCommand command = new MySqlCommand();
                 command.Connection = dbConnection;
+                command.CommandText = "select * from server_list where game_id=" + gameId + " and server_recommend=1";
+                MySqlDataReader serverResult = command.ExecuteReader();
+                if (serverResult.HasRows)
+                {
+                    serverResult.Read();
+                    sectionId = serverResult.GetInt32("account_server_section");
+                    serverId = serverResult.GetInt32("account_server_id");
+                }
+                else
+                {
+                    command.CommandText = "select * from server_list where game_id=" + gameId + " order by account_count desc";
+                    serverResult = command.ExecuteReader();
+                    serverResult.Read();
+                    sectionId = serverResult.GetInt32("account_server_section");
+                    serverId = serverResult.GetInt32("account_server_id");
+                }
+                
+		        if(name != "" && pass != "")
+                {
+                    command.CommandText = "insert into web_account values (" + userId + ", '" + clientEnpPoint.Address.ToString() + "', '" + authKey + "', " + timestamp + ")";
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
