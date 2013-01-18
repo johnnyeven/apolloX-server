@@ -27,13 +27,14 @@ namespace LoginServer
         const int TYPE_STRING = 2;
         const int TYPE_FLOAT = 3;
 
+        private static MySqlConnection productDbConnection;
         private static MySqlConnection dbConnection;
         private static MySqlConnection insertConnection;
 
         [STAThread]
         static void Main(string[] args)
         {
-            String connectionString = "Data Source=localhost;Initial Catalog=apollox_character_db;User ID=root;Password=100200";
+            String connectionString = "Data Source=localhost;Initial Catalog=apollox_character_db;User ID=root;Password=84@41%%wi96^4";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
 
@@ -186,12 +187,16 @@ namespace LoginServer
                 String guid = System.Guid.NewGuid().ToString("N");
                 String name = "Guest" + guid;
                 String pass = GetMD5(guid);
-                int sectionId;
-                int serverId;
+                int sectionId = int.MinValue;
+                int serverId = int.MinValue;
                 Console.WriteLine("[QuickStart] Name: " + name + ", Pass: " + pass);
 
+                String connectionString = "Data Source=localhost;Initial Catalog=apollox_product_db;User ID=root;Password=84@41%%wi96^4";
+                productDbConnection = new MySqlConnection(connectionString);
+                productDbConnection.Open();
+
                 MySqlCommand command = new MySqlCommand();
-                command.Connection = dbConnection;
+                command.Connection = productDbConnection;
                 command.CommandText = "select * from server_list where game_id=" + gameId + " and server_recommend=1";
                 MySqlDataReader serverResult = command.ExecuteReader();
                 if (serverResult.HasRows)
@@ -202,17 +207,42 @@ namespace LoginServer
                 }
                 else
                 {
+                    serverResult.Close();
                     command.CommandText = "select * from server_list where game_id=" + gameId + " order by account_count desc";
                     serverResult = command.ExecuteReader();
-                    serverResult.Read();
-                    sectionId = serverResult.GetInt32("account_server_section");
-                    serverId = serverResult.GetInt32("account_server_id");
+                    if (serverResult.Read())
+                    {
+                        sectionId = serverResult.GetInt32("account_server_section");
+                        serverId = serverResult.GetInt32("account_server_id");
+                    }
                 }
+                serverResult.Close();
+                serverResult.Dispose();
+                productDbConnection.Close();
+                productDbConnection.Dispose();
                 
 		        if(name != "" && pass != "")
                 {
-                    command.CommandText = "insert into web_account values (" + userId + ", '" + clientEnpPoint.Address.ToString() + "', '" + authKey + "', " + timestamp + ")";
+                    command.Connection = dbConnection;
+                    command.CommandText = "insert into web_account(GUID, account_name, account_pass, server_section) values ('" + guid + "', '" + name + "', '" + pass + "', '" + sectionId + "')";
                     command.ExecuteNonQuery();
+/*
+					$jsonData = Array(
+							'message'	=>	ACK_SUCCESS,
+							'user'		=>	$user,
+							'account_id'=>	$accountId,
+							'nick_name'	=>	$nickName
+					);
+ */
+                    CServerPackage ackSuccess = new CServerPackage();
+                    ackSuccess.success = ACK_CONFIRM;
+                    ackSuccess.controller = CONTROLLER_INFO;
+                    ackSuccess.action = ACTION_QUICK_START;
+                    ackSuccess.param.Add(new Object[] { guid.Length, guid });
+                    ackSuccess.param.Add(new Object[] { name.Length, name });
+                    ackSuccess.param.Add(new Object[] { pass.Length, pass });
+
+                    sendPackage(client, ackSuccess);
                 }
             }
         }
