@@ -34,7 +34,7 @@ namespace LoginServer
         [STAThread]
         static void Main(string[] args)
         {
-            String connectionString = "Data Source=localhost;Initial Catalog=apollox_character_db;User ID=root;Password=84@41%%wi96^4";
+            String connectionString = "Data Source=localhost;Initial Catalog=game_account_db;User ID=root;Password=84@41%%wi96^4";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
 
@@ -191,7 +191,7 @@ namespace LoginServer
                 int serverId = int.MinValue;
                 Console.WriteLine("[QuickStart] Name: " + name + ", Pass: " + pass);
 
-                String connectionString = "Data Source=localhost;Initial Catalog=apollox_product_db;User ID=root;Password=84@41%%wi96^4";
+                String connectionString = "Data Source=localhost;Initial Catalog=game_product_db;User ID=root;Password=84@41%%wi96^4";
                 productDbConnection = new MySqlConnection(connectionString);
                 productDbConnection.Open();
 
@@ -224,8 +224,9 @@ namespace LoginServer
 		        if(name != "" && pass != "")
                 {
                     command.Connection = dbConnection;
-                    command.CommandText = "insert into web_account(GUID, account_name, account_pass, server_section) values ('" + guid + "', '" + name + "', '" + pass + "', '" + sectionId + "')";
+                    command.CommandText = "insert into web_account(account_name, account_pass, server_section) values ('" + name + "', '" + pass + "', '" + sectionId + "')";
                     command.ExecuteNonQuery();
+                    int insertId = (int)command.LastInsertedId;
 /*
 					$jsonData = Array(
 							'message'	=>	ACK_SUCCESS,
@@ -238,7 +239,7 @@ namespace LoginServer
                     ackSuccess.success = ACK_CONFIRM;
                     ackSuccess.controller = CONTROLLER_INFO;
                     ackSuccess.action = ACTION_QUICK_START;
-                    ackSuccess.param.Add(new Object[] { guid.Length, guid });
+                    ackSuccess.param.Add(new Object[] { 4, insertId });
                     ackSuccess.param.Add(new Object[] { name.Length, name });
                     ackSuccess.param.Add(new Object[] { pass.Length, pass });
 
@@ -472,6 +473,16 @@ namespace LoginServer
                     bytes.CopyTo(result, resultOffset);
                     dataLength += 4;
                     resultOffset += 4;
+                }
+                else if (parameter[1].GetType() == typeof(long))
+                {
+                    result[resultOffset] = TYPE_LONG;
+                    dataLength += 1;
+                    resultOffset += 1;
+                    byte[] bytes = BitConverter.GetBytes((long)parameter[1]);
+                    bytes.CopyTo(result, resultOffset);
+                    dataLength += 8;
+                    resultOffset += 8;
                 }
             }
             byte[] packageLength = BitConverter.GetBytes((short)dataLength);
