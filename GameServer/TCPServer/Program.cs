@@ -66,17 +66,17 @@ namespace GameServer
         {
             objectsData = new ObjectsData();
             objectList = new CObjectCollection();
-            String connectionString = "Data Source=localhost;Initial Catalog=wooha_character_db;User ID=root;Password=100200";
+            String connectionString = "Data Source=localhost;Initial Catalog=game_db;User ID=root;Password=84@41%%wi96^4";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
             initCollection();
-
+            /*
             LuaFramework frame = new LuaFramework();
             frame.BindLuaAPIFunction(new testApi());
             frame.BindLuaAPIFunction(new InitApi());
             frame.BindLuaAPIFunction(new MapApi());
             frame.ExecuteFile("main.lua");
-            
+            */
             ThreadStart tStart = new ThreadStart(listen);
             Thread serverThread = new Thread(tStart);
             serverThread.Start();

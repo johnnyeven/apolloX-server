@@ -34,7 +34,7 @@ namespace LoginServer
         [STAThread]
         static void Main(string[] args)
         {
-            String connectionString = "Data Source=localhost;Initial Catalog=game_account_db;User ID=root;Password=84@41%%wi96^4";
+            String connectionString = "Data Source=localhost;Initial Catalog=pulse_db_platform;User ID=root;Password=84@41%%wi96^4";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
 
@@ -187,32 +187,29 @@ namespace LoginServer
                 String guid = System.Guid.NewGuid().ToString("N");
                 String name = "Guest" + guid;
                 String pass = GetMD5(guid);
-                int sectionId = int.MinValue;
                 int serverId = int.MinValue;
                 Console.WriteLine("[QuickStart] Name: " + name + ", Pass: " + pass);
 
-                String connectionString = "Data Source=localhost;Initial Catalog=game_product_db;User ID=root;Password=84@41%%wi96^4";
+                String connectionString = "Data Source=localhost;Initial Catalog=pulse_db_game;User ID=root;Password=84@41%%wi96^4";
                 productDbConnection = new MySqlConnection(connectionString);
                 productDbConnection.Open();
 
                 MySqlCommand command = new MySqlCommand();
                 command.Connection = productDbConnection;
-                command.CommandText = "select * from server_list where game_id=" + gameId + " and server_recommend=1";
+                command.CommandText = "select * from game_server where game_id=" + gameId + " and server_recommend=1";
                 MySqlDataReader serverResult = command.ExecuteReader();
                 if (serverResult.HasRows)
                 {
                     serverResult.Read();
-                    sectionId = serverResult.GetInt32("account_server_section");
                     serverId = serverResult.GetInt32("account_server_id");
                 }
                 else
                 {
                     serverResult.Close();
-                    command.CommandText = "select * from server_list where game_id=" + gameId + " order by account_count desc";
+                    command.CommandText = "select * from game_server where game_id=" + gameId + " order by account_count desc";
                     serverResult = command.ExecuteReader();
                     if (serverResult.Read())
                     {
-                        sectionId = serverResult.GetInt32("account_server_section");
                         serverId = serverResult.GetInt32("account_server_id");
                     }
                 }
@@ -224,7 +221,7 @@ namespace LoginServer
 		        if(name != "" && pass != "")
                 {
                     command.Connection = dbConnection;
-                    command.CommandText = "insert into web_account(account_name, account_pass, server_section) values ('" + name + "', '" + pass + "', '" + sectionId + "')";
+                    command.CommandText = "insert into pulse_account(account_name, account_pass) values ('" + name + "', '" + pass + "')";
                     command.ExecuteNonQuery();
                     int insertId = (int)command.LastInsertedId;
 /*
@@ -277,14 +274,14 @@ namespace LoginServer
             {
                 MySqlCommand command = new MySqlCommand();
                 command.Connection = dbConnection;
-                command.CommandText = "select * from account where account_name='" + userName + "' and account_pass='" + userPass + "'";
+                command.CommandText = "select * from pulse_account where account_name='" + userName + "' and account_pass='" + userPass + "'";
                 MySqlDataReader dataReader = command.ExecuteReader();
                 if (dataReader.HasRows)
                 {
                     dataReader.Close();
                     Console.WriteLine("验证通过");
 
-                    command.CommandText = "select account_id from account where account_name='" + userName + "'";
+                    command.CommandText = "select account_id from pulse_account where account_name='" + userName + "'";
                     int userId = Convert.ToInt32(command.ExecuteScalar());
 
                     String authKey = System.Guid.NewGuid().ToString("B");
