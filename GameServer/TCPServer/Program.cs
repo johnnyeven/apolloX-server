@@ -66,11 +66,11 @@ namespace GameServer
         {
             objectsData = new ObjectsData();
             objectList = new CObjectCollection();
-            String connectionString = "Data Source=localhost;Initial Catalog=game_db;User ID=root;Password=84@41%%wi96^4";
+            String connectionString = "Data Source=localhost;Initial Catalog=pulse_db_game;User ID=root;Password=84@41%%wi96^4";
             dbConnection = new MySqlConnection(connectionString);
             dbConnection.Open();
-            initCollection();
             /*
+            initCollection();
             LuaFramework frame = new LuaFramework();
             frame.BindLuaAPIFunction(new testApi());
             frame.BindLuaAPIFunction(new InitApi());
@@ -268,7 +268,7 @@ namespace GameServer
         {
             MySqlCommand comm = new MySqlCommand();
             comm.Connection = dbConnection;
-            comm.CommandText = "select * from game_character";
+            comm.CommandText = "select * from game_account";
             MySqlDataReader result = comm.ExecuteReader();
             while (result.Read())
             {
