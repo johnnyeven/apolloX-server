@@ -94,6 +94,7 @@
     <Compile Include="Wooha\Utils\CDirection.cs" />
     <Compile Include="Wooha\Utils\CObjectType.cs" />
     <Compile Include="Wooha\Utils\Point.cs" />
+    <Compile Include="Wooha\Utils\QuadTree.cs" />
     <Compile Include="Wooha\Utils\Vector2D.cs" />
   </ItemGroup>
   <ItemGroup>
