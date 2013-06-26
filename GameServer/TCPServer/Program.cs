@@ -197,7 +197,15 @@ namespace GameServer
                 byte[] data = new byte[1024];//用于缓存客户端所发送的信息,通过socket传递的信息必须为字节数组
                 int recv;//用于表示客户端发送的信息长度
                 data = new byte[10240];
-                recv = client.Receive(data);
+                try
+                {
+                    recv = client.Receive(data);
+                }
+                catch (SocketException err)
+                {
+                    Console.WriteLine(err.Message);
+                    return;
+                }
 
                 if (recv == 0)//当信息长度为0，说明客户端连接断开
                 {

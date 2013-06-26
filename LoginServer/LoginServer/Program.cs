@@ -423,12 +423,12 @@ namespace LoginServer
             int dataLength = 0;
 
             byte[] result = new byte[1024];
-            result[2] = (byte)package.success;
-            result[3] = (byte)package.controller;
-            result[4] = (byte)package.action;
+            result[4] = (byte)package.success;
+            result[5] = (byte)package.controller;
+            result[6] = (byte)package.action;
             dataLength += 3;
 
-            int resultOffset = 5;
+            int resultOffset = 7;
             for (int i = 0; i < package.param.Count; i++)
             {
                 object[] parameter = (object[])package.param[i];
@@ -482,9 +482,9 @@ namespace LoginServer
                     resultOffset += 8;
                 }
             }
-            byte[] packageLength = BitConverter.GetBytes((short)dataLength);
+            byte[] packageLength = BitConverter.GetBytes(dataLength);
             packageLength.CopyTo(result, 0);
-            dataLength += 2;
+            dataLength += 4;
             socket.Send(result, dataLength, SocketFlags.None);
         }
 
