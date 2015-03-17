@@ -12,3 +12,7 @@ E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\bin\Debug\LoginS
 E:\我的代码\VS项目\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\ResolveAssemblyReference.cache
 E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.exe
 E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.pdb
+E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\bin\Debug\LoginServer.exe
+E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\bin\Debug\LoginServer.pdb
+E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\bin\Debug\MySql.Data.dll
+E:\我的代码\VS程序\apolloX-server\LoginServer\LoginServer\obj\x86\Debug\LoginServer.csprojResolveAssemblyReference.cache
